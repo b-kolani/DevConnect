@@ -1,0 +1,36 @@
+# Dépendances
+node_modules/
+vendor/
+
+# Fichiers d'environnement et secrets
+.env
+.env.local
+.env*.local
+
+# Fichiers de build / production
+/dist/
+/build/
+/.next/
+/out/
+
+# Logs et erreurs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Éditeurs et IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.settings/
+*.sublime-workspace
+
+# Cache et tests
+.cache/
+/coverage/
+.eslintcache
