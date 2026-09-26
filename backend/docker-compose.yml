@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:18
+    container_name: devconnect-db 
+    restart: unless-stopped 
+
+    environment:
+      POSTGRES_USER: devconnect
+      POSTGRES_PASSWORD: devconnect
+      POSTGRES_DB: devconnect
+    
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - devconnect_data:/var/lib/postgresql
+    
+
+volumes:
+  devconnect_data:

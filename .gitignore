@@ -34,3 +34,9 @@ Thumbs.db
 .cache/
 /coverage/
 .eslintcache
+
+# Cache d'intégration d'IA Prisma (Générés par prisma skills sync)
+.claude/
+.cursor/
+.agents/
+.devin/
