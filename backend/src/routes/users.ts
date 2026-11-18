@@ -1,6 +1,6 @@
-import type { FastifyInstance, FastifyReply } from "fastify"
-import fp from "fastify-plugin"
-import z from "zod"
+import type { FastifyInstance, FastifyReply } from "fastify";
+import fp from "fastify-plugin";
+import z from "zod";
 import prisma from "../lib/prisma.js";
 import { Prisma } from '@prisma/client';
 
@@ -30,7 +30,7 @@ function isObject(value: unknown): value is Record<string, unknown> {
 const errorMap = {
     "User_username_key": "username",
     "User_email_key": "email"
-}
+};
 
 // Define a type for the keys of the errorMap object
 // This type represents the keys of the errorMap object,
@@ -49,7 +49,7 @@ function sendInternalServerError(reply: FastifyReply) {
         .send({
             error: "Something went wrong."
         });
-}
+};
 
 // Define the user routes for the Fastify application
 // This function registers the user-related routes with the Fastify application.
@@ -140,21 +140,16 @@ const userRoutes = (app: FastifyInstance) => {
 
             if (error instanceof Prisma.PrismaClientKnownRequestError) {
 
-                if (error.code == 'P2002') {
+                if (error.code === 'P2002') {
                     if (isObject(error.meta)) {
-                        // console.log(error.meta);
                         const driverAdapterError = error.meta.driverAdapterError;
-                        // console.log(driverAdapterError);
                         if (isObject(driverAdapterError)) {
                             const cause = driverAdapterError.cause;
                             if (isObject(cause)) {
-                                // console.log(cause.constraint);
                                 const constraint = cause.constraint;
                                 if (isObject(constraint)) {
-                                    // console.log(constraint.index);
                                     const index = constraint.index;
                                     if (typeof index === 'string') {
-                                        // console.log(index);
                                         if (isErrorMapKey(index)) {
                                             errorField = errorMap[index];
                                         }
