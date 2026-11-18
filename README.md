@@ -74,7 +74,7 @@ Run these commands from `backend/`:
 | --- | --- |
 | `npm run dev` | Start the development API |
 | `npm test` | Run the backend test suite |
-| `npx tsc --noEmit` | Type-check the backend |
+| `npm run typecheck` | Type-check the backend |
 | `npx prisma validate` | Validate the Prisma schema |
 | `npx prisma migrate status` | Check migration status |
 | `npx prisma migrate deploy` | Apply committed migrations |
@@ -114,6 +114,8 @@ The user endpoints currently support:
 - Lookup by numeric user ID
 - `400` responses for invalid IDs or request bodies
 - `404` responses when a user does not exist
+- `409` responses for duplicate usernames or email addresses
+- `500` responses for unexpected database failures
 
 ## Database
 
@@ -146,6 +148,24 @@ Do not edit an already-applied migration; create a new one instead.
 
 ## MVP direction
 
+### Entity relationship overview
+
+```text
+User
+├── Profile
+├── Post
+│   ├── Image
+│   ├── Comment
+│   └── Like
+├── Project
+├── Following users
+├── Conversation members
+│   └── Messages
+└── Notifications
+
+User ───────── Technology ───────── Technology
+```
+
 The product model is expected to grow toward:
 
 - User profiles
@@ -168,7 +188,6 @@ Implemented:
 - Prisma schema and initial migration
 - Health endpoints
 - User creation and read endpoints
-- Initial user route tests
+- Comprehensive user route tests
 
-Next recommended slice: add complete tests for `POST /users`, then implement
-profiles on top of the existing User model.
+Next recommended slice: implement profiles on top of the existing User model.
